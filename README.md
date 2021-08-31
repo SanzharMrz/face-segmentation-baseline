@@ -15,5 +15,5 @@ $ pip install -r requirements.txt
 
 # Usage
 ```bash
-$ python demo.py example.jpg
+$ python inference.py example.jpg
 ```
