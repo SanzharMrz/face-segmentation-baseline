@@ -6,7 +6,7 @@ Face segmentation baseline
 
 ```bash
 # Create a venv
-$ python3 -m virtualenv venv
+$ python -m virtualenv venv
 $ source venv/bin/activate
 
 # Install requirements
