@@ -17,3 +17,10 @@ $ pip install -r requirements.txt
 ```bash
 $ python inference.py example.jpg
 ```
+
+# Results
+After running scripts you will have, two files
+
+```python
+a = np.loadtxt('Aishwariya_Rai_(face)_array.out', delimiter=',')
+```
