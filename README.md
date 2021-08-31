@@ -15,7 +15,7 @@ $ pip install -r requirements.txt
 
 # Usage
 ```bash
-$ python inference.py example.jpg
+$  python inference.py --filepath Aishwariya_Rai_\(face\).jpg 
 ```
 
 # Results
