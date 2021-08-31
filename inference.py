@@ -5,11 +5,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap
 
-from face_parser import FaceParser
+from parser.face_parser import FaceParser
 
 import warnings
 warnings.filterwarnings("ignore")
-
 
 def resize_image(im, max_size=768):
     if np.max(im.shape) > max_size:
@@ -34,25 +33,25 @@ def show_parsing_with_annos(data):
     new_colors = cmap(np.linspace(0, 1, len(parsing_annos)))
     new_colors[0, :] = np.array([0, 0, 0, 1.])
     new_cmap = ListedColormap(new_colors)
+    
     # set limits .5 outside true range
     mat = ax.matshow(data, cmap=new_cmap, vmin=-0.5, vmax=18.5)
+    
     #tell the colorbar to tick at integers    
     cbar = fig.colorbar(mat, ticks=np.arange(0, len(parsing_annos)))
     cbar.ax.set_yticklabels(parsing_annos)
     plt.axis('off')
-    fig.show()
-
-parser = argparse.ArgumentParser()
-parser.add_argument("filepath", help="display a square of a given number")
+    fig.savefig('parsed_pic.png', dpi=fig.dpi)
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--filepath", help="path to some jpg/jpeg file")
     args = parser.parse_args()
     prs = FaceParser()
     im = cv2.imread(args.filepath)[..., ::-1]
     im = resize_image(im) # Resize image to prevent GPU OOM.
     out = prs.parse_face(im)
     h, w, _ = im.shape
-    plt.imshow(im)
     show_parsing_with_annos(out[0])
     print(out)
