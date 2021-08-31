@@ -19,8 +19,7 @@ $  python inference.py --filepath Aishwariya_Rai_\(face\).jpg
 ```
 
 # Results
-After running scripts you will have, two files
-
+After running scripts you will have, two files:
 ```python
 a = np.loadtxt('Aishwariya_Rai_(face)_array.out', delimiter=',')
 ```
