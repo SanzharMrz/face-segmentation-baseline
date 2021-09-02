@@ -26,7 +26,7 @@ parsing_annos = [
 ]
 
 
-def show_parsing_with_annos(data):
+def show_parsing_with_annos(data, name):
     fig, ax = plt.subplots(figsize=(8,8))
     #get discrete colormap
     cmap = plt.get_cmap('gist_ncar', len(parsing_annos))
@@ -41,7 +41,9 @@ def show_parsing_with_annos(data):
     cbar = fig.colorbar(mat, ticks=np.arange(0, len(parsing_annos)))
     cbar.ax.set_yticklabels(parsing_annos)
     plt.axis('off')
-    fig.savefig('parsed_pic.png', dpi=fig.dpi)
+    figname = f'{name}_parsed.png'
+    fig.savefig(figname, dpi=fig.dpi)
+    print(f'Figure {figname} saved ...')
 
 
 if __name__ == "__main__":
@@ -52,6 +54,8 @@ if __name__ == "__main__":
     im = cv2.imread(args.filepath)[..., ::-1]
     im = resize_image(im) # Resize image to prevent GPU OOM.
     out = prs.parse_face(im)
-    h, w, _ = im.shape
-    show_parsing_with_annos(out[0])
-    print(out)
+    name, _ = args.filepath.split('.')
+    show_parsing_with_annos(out[0], name)
+    array_file = f'{name}_array.out'
+    np.savetxt(array_file, out[0], delimiter=',')
+    print(f'Array file {array_file} saved ...')
